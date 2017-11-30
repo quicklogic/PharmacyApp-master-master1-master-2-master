@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PharmacyApp.Views.ProductListPage" Title="Список продуктов:"
+             xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="Search" Icon="icon.png" Text="Search" Command="{Binding SearchCommand}"/>
+    </ContentPage.ToolbarItems>
+    <StackLayout BackgroundColor="White">
+        <StackLayout IsVisible="{Binding SearchVisible}">
+            <SearchBar Placeholder="Введите название продукта..." TextChanged="SearchBar_OnTextChanged" BackgroundColor="White">
+            </SearchBar>
+            <Button Text="Фильтры" Command="{Binding FiltersCommand}" TextColor="White" BackgroundColor="#81C784" BorderRadius="1000" BorderColor="White"/>
+        </StackLayout>
+
+        <StackLayout IsVisible="{Binding FiltersVisible}">
+            <ScrollView Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                    <Button Text="Категория"  Command="{Binding CategoryCommand}" TextColor="White" BackgroundColor="#81C784" BorderRadius="1000" BorderColor="White"/>
+                    <Button Text="Тип"  TextColor="White" BackgroundColor="#81C784" BorderRadius="1000" BorderColor="White"/>
+                    <Button Text="Цена"  TextColor="White" BackgroundColor="#81C784" BorderRadius="1000" BorderColor="White"/>
+                    <Button Text="Наличие" TextColor="White" BackgroundColor="#81C784" BorderRadius="1000" BorderColor="White"/>
+                    <Picker Title="Категория" BackgroundColor="#81C784"  ItemsSource="{Binding Product, Mode=TwoWay}" />
+                </StackLayout> 
+          </ScrollView>
+        </StackLayout>
+        <ListView IsPullToRefreshEnabled="True" x:Name="productsList" ItemsSource="{Binding Products}" BackgroundColor="White" RefreshCommand="{Binding ListRefresh}"
+              SelectedItem="{Binding SelectedProduct, Mode=TwoWay}" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <StackLayout Padding="20">
+                                <Label Text="Название препарата:" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
+                                <Label Text="{Binding Name}" FontSize="Medium" TextColor="Green" HorizontalOptions="CenterAndExpand" />
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                                    <Label Text="Цена:" FontSize="Medium" FontAttributes="Bold"  />
+                                    <Label Text="{Binding Price}" FontSize="Medium" TextColor="Green" />
+                                    <Label Text="Наличие:" FontSize="Medium" FontAttributes="Bold"  />
+                                    <Label Text="{Binding Availability}" FontSize="Medium" TextColor="Green" />
+                                </StackLayout>
+                         </StackLayout>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <StackLayout IsVisible="{Binding IsBusy}" BackgroundColor="White"
+                    HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Padding="20">
+            <Label Text="Загрузка данных..." TextColor="Gray" HorizontalOptions="Center" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}" Color="Accent" >
+            </ActivityIndicator>
+        </StackLayout>
+   
+
+
+    </StackLayout>
+</ContentPage>
+

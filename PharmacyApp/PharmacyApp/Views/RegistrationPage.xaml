@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PharmacyApp.Views.RegistrationPage">
+    <StackLayout>
+        <StackLayout IsVisible="{Binding PassLogVisible}">
+            <Label Text="Логин:"/>
+            <Entry Text="{Binding Path=Login}" Keyboard="Default" Placeholder="Введите ваш логин"/>
+            <Label Text="Пароль:"/>
+            <Entry Text="{Binding Path=Password}" Keyboard="Default" Placeholder="Введите ваш пароль" IsPassword="True"/>
+            <Button Text="Далее" Command="{Binding NextCommand}"/>
+        </StackLayout>
+        <TableView IsVisible="{Binding TableVisible}">
+            <TableView.Root>
+                <TableRoot>
+                    <TableSection Title="Пожалуйста, заполните информация о себе.;&#10;Обязательные поля отмечены *" >
+                        <EntryCell Label="Имя*" Keyboard="Default" Placeholder="Введите ваше имя" Text="{Binding Path=FirstName}"/>
+                        <EntryCell Label="Фамилия*"  Text="{Binding Path=SecondName}" />
+                        <EntryCell Label="Отчество" Keyboard="Default" Placeholder="Введите ваше отчество" Text="{Binding Path=Patronomyc}"/>
+                        <EntryCell Label="Адрес*" Keyboard="Default" Placeholder="Введите ваш адрес" Text="{Binding Path=Address}"/>
+                        <EntryCell Label="Дата рождения(В формате: Год.Месяц.День*" Keyboard="Default" Placeholder="Введите дату вашего рождения" Text="{Binding Path=BornDate}"/>
+                        <EntryCell Label="Телефон*" Keyboard="Telephone" Placeholder="Введите ваш номер телефона" Text="{Binding Path=Number}" />
+                        <EntryCell Label="Email*" Keyboard="Email" Placeholder="Введите ваш email" Text="{Binding Path=Mail}"/>
+                    </TableSection>
+                </TableRoot>
+            </TableView.Root>
+        </TableView>
+        <Button Text="Зарегистрироваться" IsVisible="{Binding TableVisible}" HorizontalOptions="CenterAndExpand" Command="{Binding RegisterCommand}" />
+    </StackLayout>
+</ContentPage>
